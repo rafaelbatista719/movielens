@@ -47,10 +47,13 @@ validation <- validation %>% extract(title, c("title", "year"), "^(.*)\\s\\((\\d
           isWar = str_detect(genres, "War"),
           isWestern = str_detect(genres, "Western"))
 
-test_index <- createDataPartition(edx$rating, times = 1, p = 0.5, list = FALSE)
+test_index <- createDataPartition(edx$rating, times = 1, p = 0.2, list = FALSE)
 
-test <- edx[test_index, ]
-train <- edx[-test_index, ]
+test_set <- edx[test_index, ]
+train_set <- edx[-test_index, ]
 rm(test_index)
+test_set <- test_set %>%
+  semi_join(train_set, by = "movieId") %>%
+  semi_join(train_set, by = "userId")
 
 save.image(file = "./rda/edx-validation-modified.RData")
