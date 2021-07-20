@@ -1,5 +1,7 @@
 load("./rda/edx-validation-modified.RData")
 
+library(tidyverse)
+
 RMSE <- function(true_ratings, predicted_ratings){
   sqrt(mean((true_ratings - predicted_ratings)^2))
 }
