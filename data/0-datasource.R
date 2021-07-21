@@ -49,4 +49,4 @@ edx <- rbind(edx, removed)
 
 rm(dl, ratings, movies, test_index, temp, movielens, removed)
 
-save.image(file = "./rda/edx-validation.RData")
+save.image("./rda/edx-validation.RData")

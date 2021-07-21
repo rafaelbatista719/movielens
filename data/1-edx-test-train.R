@@ -56,4 +56,4 @@ test_set <- test_set %>%
   semi_join(train_set, by = "movieId") %>%
   semi_join(train_set, by = "userId")
 
-save.image(file = "./rda/edx-validation-modified.RData")
+save.image("./rda/edx-validation-modified.RData")
