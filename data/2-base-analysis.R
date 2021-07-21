@@ -58,9 +58,8 @@ rmses <- sapply(lambdas, function(l){
   mu <- mean(train_set$rating)
   movie_reg_avgs <- train_set %>% 
     group_by(movieId) %>% 
-    summarize(b_i = sum(rating - mu)/(n()+l), n_i = n()) 
-  
-  predicted_ratings <- test_set %>% 
+    summarize(b_i = sum(rating - mu)/(n()+l)) 
+  predicted_ratings <- test_set %>%
     left_join(movie_reg_avgs, by='movieId') %>%
     mutate(pred = mu + b_i) %>%
     .$pred
@@ -99,7 +98,7 @@ rmses <- sapply(lambdas, function(l){
   return(RMSE(predicted_ratings, test_set$rating))
 })
 
-qplot(lambdas, rmses)  
+qplot(lambdas, rmses)
 
 lambda <- lambdas[which.min(rmses)]
 lambda
@@ -110,4 +109,6 @@ rmse_results <- bind_rows(rmse_results,
                                      RMSE = model_4_rmse))
 rmse_results %>% knitr::kable()
 
+rm(movie_avgs, movie_titles, rmse_results, user_avgs)
+rm(lambdas, model_1_rmse, model_2_rmse, model_3_rmse, model_4_rmse, mu, mu_hat, naive_rmse, predicted_ratings, rmses)
 save.image("./rda/regularized-model.RData")
