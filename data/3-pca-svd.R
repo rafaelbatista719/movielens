@@ -19,3 +19,7 @@ res <-
   left_join(b_u, by = "userId") %>%
   mutate(pred = mu + b_i + b_u, res = rating - pred) %>%
   .$res
+
+# Principal Component Analysis
+
+pca <- prcomp(train_set[,8:26])
